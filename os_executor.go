@@ -2,7 +2,6 @@ package command
 
 import (
 	"io"
-	"os"
 	"os/exec"
 )
 
@@ -19,7 +18,7 @@ func New(r ...Runner) Executor {
 	if len(r) > 0 {
 		return &OS{r[0]}
 	}
-	return &OS{NewRunner(os.Stdout, os.Stderr)}
+	return &OS{&Command{new(exec.Cmd)}}
 }
 
 // Convert transforms an existing Runner into an Executor,
